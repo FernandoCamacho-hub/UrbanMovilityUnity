@@ -26,18 +26,12 @@ public class CameraManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
 
     private void Start()
     {
         EnableCamera(_activeCamera);
     }
-
-    public Camera GetCurrentCamera()
-    {
-        return _cameras[_activeCamera];
-    } 
 
     private void EnableCamera(int cameraToEnable)
     {
@@ -50,7 +44,7 @@ public class CameraManager : MonoBehaviour
         {
             throw new System.Exception("No hay cameras");
         }
-
+        
         DisableCarCamera();
         for (int i = 0; i < _cameras.Length; i++)
         {
@@ -58,33 +52,23 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    private void DisableMainCameras()
-    {
-        for (int i = 0; i < _cameras.Length; i++)
-        {
-            _cameras[i].gameObject.SetActive(false);
-        }
-    }
-
     private void DisableCarCamera()
     {
-        if (_activeCarCamera != null)
-        {
-            _activeCarCamera.gameObject.SetActive(false);
-        }
+        _activeCarCamera = null;
     }
     
 
     public void EnableCarCamera(Camera carCamera)
     {
-        DisableMainCameras();
-        DisableCarCamera();
-        carCamera.gameObject.SetActive(true);
+        print("enter enable car camera");
         _activeCarCamera = carCamera;
+        _cameras[2] = _activeCarCamera;
+        ChangeCamera();
     }
 
     public void ChangeCamera()
     {
+        print("enter change camera");
         _activeCamera++;
         //asegurarnos que no excede el tamanio
         _activeCamera %= _cameras.Length;

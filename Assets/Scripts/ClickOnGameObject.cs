@@ -14,7 +14,7 @@ public class ClickOnGameObject : MonoBehaviour
     }
 
 
-    void EnableCamera()
+    private void EnableCamera()
     {
         // _carCamera = gameObject.transform.GetChild(0).GetComponent<Camera>();
         _carCamera = gameObject.GetComponentInChildren<Camera>();
