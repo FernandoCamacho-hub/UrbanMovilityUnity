@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class Carro
+public class Cars
 {
     public int id;
     public float x;
