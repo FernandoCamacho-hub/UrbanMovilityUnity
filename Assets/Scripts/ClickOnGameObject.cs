@@ -18,6 +18,7 @@ public class ClickOnGameObject : MonoBehaviour
     {
         // _carCamera = gameObject.transform.GetChild(0).GetComponent<Camera>();
         _carCamera = gameObject.GetComponentInChildren<Camera>();
+        // _carCamera.enabled = true;
         CameraManager.Instance.EnableCarCamera(_carCamera);
     }
 }

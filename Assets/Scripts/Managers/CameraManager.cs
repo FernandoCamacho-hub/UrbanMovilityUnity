@@ -45,16 +45,19 @@ public class CameraManager : MonoBehaviour
             throw new System.Exception("No hay cameras");
         }
         
-        DisableCarCamera();
         for (int i = 0; i < _cameras.Length; i++)
         {
-            _cameras[i].gameObject.SetActive(i == cameraToEnable);
+            if (_cameras[i] == null && i == cameraToEnable)
+            {
+                ChangeCamera();
+            }
+            else
+            {
+                _cameras[i].enabled = i == cameraToEnable;
+                // _cameras[i].gameObject.SetActive(i == cameraToEnable);
+            }
+            
         }
-    }
-
-    private void DisableCarCamera()
-    {
-        _activeCarCamera = null;
     }
     
 
@@ -63,7 +66,8 @@ public class CameraManager : MonoBehaviour
         print("enter enable car camera");
         _activeCarCamera = carCamera;
         _cameras[2] = _activeCarCamera;
-        ChangeCamera();
+        _activeCamera = 2;
+        EnableCamera(_activeCamera);
     }
 
     public void ChangeCamera()
