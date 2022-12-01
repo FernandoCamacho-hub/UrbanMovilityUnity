@@ -49,25 +49,9 @@ public class CarPoolManager : MonoBehaviour
 
         _activeCars = new List<Car>();
     }
-    
-    public Car GetGameObject()
-    {
-        if (_carsPool.Count > 0)
-        {
-            return _carsPool.Pop();
-        }
-
-        return null;
-    }
-    
-    public void ReturnGameObjectToPool(Car go)
-    {
-        _carsPool.Push(go);
-    }
 
     public void ActivateCar(Car car)
     {
-        print("id: " + car.id);
         if (IsCarActive(car.id))
         {
             return;
@@ -75,13 +59,12 @@ public class CarPoolManager : MonoBehaviour
 
         car.prefab = _carsPool.Pop().prefab;
         car.prefab.gameObject.SetActive(true);
-        car.prefab.gameObject.transform.position = Vector3.down;
+        car.prefab.gameObject.transform.position = new Vector3(car.x, car.y, car.z);
         _activeCars.Add(car);
     }
 
     private bool IsCarActive(int id)
     {
-        print("count de activeCars: " + _activeCars.Count);
         for (int i = 0; i < _activeCars.Count; i++)
         {
             if (_activeCars[i].id == id)
@@ -104,16 +87,37 @@ public class CarPoolManager : MonoBehaviour
 
             if (_activeCars[i].id == car.id)
             {
+                _activeCars[i].x = car.x;
+                _activeCars[i].y = car.y;
+                _activeCars[i].z = car.z;
                 Vector3 pos = new Vector3(car.x, car.y, car.z);
                 // car.prefab.gameObject.transform.position = pos;
-                _activeCars[i].prefab.gameObject.transform.position = pos;
+                // _activeCars[i].prefab.gameObject.transform.position = pos;
+                StartCoroutine(_activeCars[i].prefab.GetComponent<RotateTowardsMoveDirection>().SmoothMotion(pos));
             }
         }
     }
 
-    public void Deactivate(Car go)
+    private void EliminateFromActiveCars(GameObject go)
     {
-        go.prefab.gameObject.SetActive(false);
-        _carsPool.Push(go);
+        int idToDelete = new int();
+        for (int i = 0; i < _activeCars.Count; i++)
+        {
+            if (_activeCars[i].prefab.transform.position == go.transform.position)
+            {
+                idToDelete = i;
+            }
+        }
+
+        _activeCars.RemoveAt(idToDelete);
+    }
+
+    public void Deactivate(GameObject go)
+    {
+        go.SetActive(false);
+        Car car = new Car();
+        car.prefab = go;
+        _carsPool.Push(car);
+        EliminateFromActiveCars(go);
     }
 }
