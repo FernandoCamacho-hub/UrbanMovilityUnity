@@ -16,6 +16,6 @@ public class DestroyGameObject : MonoBehaviour
 
     public void SelfDestroy()
     {
-        CarPoolManager.Instance.Deactivate(gameObject);
+        // CarPoolManager.Instance.Deactivate(gameObject);
     }
 }

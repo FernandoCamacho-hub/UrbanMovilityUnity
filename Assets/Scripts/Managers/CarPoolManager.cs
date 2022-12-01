@@ -9,7 +9,9 @@ public class CarPoolManager : MonoBehaviour
     private static CarPoolManager _carPoolManager;
     [SerializeField] private GameObject _carPrefab;
     [SerializeField] private int _poolSize = 0;
-    private Stack<GameObject> _pool = new Stack<GameObject>();
+    // private Stack<GameObject> _pool = new Stack<GameObject>();
+    private Stack<Car> _carsPool = new Stack<Car>();
+    [SerializeField] private List<Car> _activeCars;
     public static CarPoolManager Instance
     {
         get => _carPoolManager;
@@ -34,44 +36,84 @@ public class CarPoolManager : MonoBehaviour
 
         for (int i = 0; i < _poolSize; i++)
         {
-            GameObject clone = Instantiate(_carPrefab);
-            clone.SetActive(false);
-            _pool.Push(clone);
+            // GameObject clone = Instantiate(_carPrefab);
+            // clone.SetActive(false);
+            // _pool.Push(clone);
+           
+            Car newCar = new Car();
+            newCar.prefab = _carPrefab;
+            newCar.prefab = Instantiate(_carPrefab);
+            newCar.prefab.gameObject.SetActive(false);
+            _carsPool.Push(newCar);
         }
+
+        _activeCars = new List<Car>();
     }
     
-    public GameObject GetGameObject()
+    public Car GetGameObject()
     {
-        if (_pool.Count > 0)
+        if (_carsPool.Count > 0)
         {
-            return _pool.Pop();
+            return _carsPool.Pop();
         }
 
         return null;
     }
     
-    public void ReturnGameObjectToPool(GameObject go)
+    public void ReturnGameObjectToPool(Car go)
     {
-        _pool.Push(go);
+        _carsPool.Push(go);
     }
 
-    public GameObject Activate(Vector3 position)
+    public void ActivateCar(Car car)
     {
-        if (_pool.Count == 0)
+        print("id: " + car.id);
+        if (IsCarActive(car.id))
         {
-            Debug.LogError("Pool is empty");
-            return null;
+            return;
         }
-        
-        GameObject clone = _pool.Pop();
-        clone.transform.position = position;
-        clone.SetActive(true);
-        return clone;
+
+        car.prefab = _carsPool.Pop().prefab;
+        car.prefab.gameObject.SetActive(true);
+        car.prefab.gameObject.transform.position = Vector3.down;
+        _activeCars.Add(car);
+    }
+
+    private bool IsCarActive(int id)
+    {
+        print("count de activeCars: " + _activeCars.Count);
+        for (int i = 0; i < _activeCars.Count; i++)
+        {
+            if (_activeCars[i].id == id)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
     
-    public void Deactivate(GameObject go)
+    public void UpdatePosition(Car car)
     {
-        go.SetActive(false);
-        _pool.Push(go);
+        for (int i = 0; i < _activeCars.Count; i++)
+        {
+            if (_activeCars[i] == null)
+            {
+                continue;
+            }
+
+            if (_activeCars[i].id == car.id)
+            {
+                Vector3 pos = new Vector3(car.x, car.y, car.z);
+                // car.prefab.gameObject.transform.position = pos;
+                _activeCars[i].prefab.gameObject.transform.position = pos;
+            }
+        }
+    }
+
+    public void Deactivate(Car go)
+    {
+        go.prefab.gameObject.SetActive(false);
+        _carsPool.Push(go);
     }
 }
