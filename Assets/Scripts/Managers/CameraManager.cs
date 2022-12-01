@@ -59,23 +59,32 @@ public class CameraManager : MonoBehaviour
             
         }
     }
-    
 
     public void EnableCarCamera(Camera carCamera)
     {
-        print("enter enable car camera");
         _activeCarCamera = carCamera;
         _cameras[2] = _activeCarCamera;
         _activeCamera = 2;
         EnableCamera(_activeCamera);
     }
 
-    public void ChangeCamera()
+    public void ChangeCameraTopView()
     {
-        print("enter change camera");
-        _activeCamera++;
-        //asegurarnos que no excede el tamanio
-        _activeCamera %= _cameras.Length;
+        _activeCamera = 1;
         EnableCamera(_activeCamera);
     }
+
+    public void ChangeCamera()
+    {
+        _activeCamera = 0;
+        EnableCamera(_activeCamera);
+    }
+    // public void ChangeCamera()
+    // {
+    //     print("enter change camera");
+    //     _activeCamera++;
+    //     //asegurarnos que no excede el tamanio
+    //     _activeCamera %= _cameras.Length;
+    //     EnableCamera(_activeCamera);
+    // }
 }

@@ -12,5 +12,6 @@ public class DetectCollision : MonoBehaviour
         {
             CarPoolManager.Instance.Deactivate(gameObject);
         }
+        CameraManager.Instance.ChangeCamera();
     }
 }

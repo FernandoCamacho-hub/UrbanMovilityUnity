@@ -31,5 +31,8 @@ public class CarBuilder : MonoBehaviour
 
         _carritoInterno.transform.localScale = new Vector3(curCarSo.scale, curCarSo.scale, curCarSo.scale);
     }
-    
+
+    private void OnDisable()
+    {
+    }
 }
