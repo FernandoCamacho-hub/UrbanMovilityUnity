@@ -6,5 +6,5 @@ using System.Collections.Generic;
 [Serializable]
 public class ListaCarros
 {
-    public Step[] steps;
+    public List<Step> steps;
 }

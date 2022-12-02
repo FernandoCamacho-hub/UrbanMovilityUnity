@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
@@ -25,15 +26,16 @@ public class RequestManager : MonoBehaviour
     private void Awake()
     {
         _carros = new ListaCarros();
-        _carros.steps = new Step[2];
+        // _carros.steps = new List<Step>();
+        _carros.steps = new List<Step>();
 
-        for (int i = 0; i < _carros.steps.Length; i++)
+        for (int i = 0; i < _carros.steps.Count; i++)
         {
             _carros.steps[i] = new Step();
             
-            _carros.steps[i].cars = new Car[2];
+            _carros.steps[i].cars = new List<Car>();
 
-            for (int j = 0; j < _carros.steps[i].cars.Length; j++)
+            for (int j = 0; j < _carros.steps[i].cars.Count; j++)
             {
                 _carros.steps[i].cars[j] = new Car();
             }
@@ -93,15 +95,15 @@ public class RequestManager : MonoBehaviour
     
     IEnumerator UpdateCarPositions()
     {
-        for (int i = 0; i < _carros.steps.Length; i++)
+        for (int i = 0; i < _carros.steps.Count; i++)
         {
             yield return new WaitForSeconds(_timeBetweenSteps);
 
-            Car[] cars = new Car[_carros.steps[i].cars.Length];
+            Car[] cars = new Car[_carros.steps[i].cars.Count];
             // Vector3[] positions = new Vector3[_carros.steps[i].cars.Length];
             // int[] ids = new int[_carros.steps[i].cars.Length];
 
-            for (int j = 0; j < _carros.steps[i].cars.Length; j++)
+            for (int j = 0; j < _carros.steps[i].cars.Count; j++)
             {
                 Car car = _carros.steps[i].cars[j];
                 cars[j] = car;
