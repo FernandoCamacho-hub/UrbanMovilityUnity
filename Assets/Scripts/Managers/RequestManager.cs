@@ -18,7 +18,7 @@ public class RequestManager : MonoBehaviour
     private ListaCarros _carros;
     [SerializeField] private UnityEvent<Car[]> _spawnCars;
 
-    [SerializeField] private float _secondsBetweenRequest;
+    // [SerializeField] private float _secondsBetweenRequest;
     [SerializeField] private float _timeBetweenSteps;
     private string _json;
 
@@ -46,30 +46,30 @@ public class RequestManager : MonoBehaviour
         StartCoroutine(RequestSingle());
     }
 
-    IEnumerator RequestRecurrent() {
-
-        while(true){
-
-            // empezamos haciendo request
-            UnityWebRequest www = UnityWebRequest.Get(_urlRequest);
-
-            // como en cualquier request este asunto es asíncrono
-            yield return www.SendWebRequest();
-
-            if(www.result != UnityWebRequest.Result.Success){
-                Debug.LogError("PROBLEMA EN REQUEST");
-            } 
-            else
-            {
-                // Debug.Log("Request successful");
-                _json = www.downloadHandler.text;
-                //parsing de json
-                _carros = JsonUtility.FromJson<ListaCarros>(_json);
-            }
-
-            yield return new WaitForSeconds(_secondsBetweenRequest);
-        }
-    }
+    // IEnumerator RequestRecurrent() {
+    //
+    //     while(true){
+    //
+    //         // empezamos haciendo request
+    //         UnityWebRequest www = UnityWebRequest.Get(_urlRequest);
+    //
+    //         // como en cualquier request este asunto es asíncrono
+    //         yield return www.SendWebRequest();
+    //
+    //         if(www.result != UnityWebRequest.Result.Success){
+    //             Debug.LogError("PROBLEMA EN REQUEST");
+    //         } 
+    //         else
+    //         {
+    //             // Debug.Log("Request successful");
+    //             _json = www.downloadHandler.text;
+    //             //parsing de json
+    //             _carros = JsonUtility.FromJson<ListaCarros>(_json);
+    //         }
+    //
+    //         yield return new WaitForSeconds(_secondsBetweenRequest);
+    //     }
+    // }
 
     IEnumerator RequestSingle()
     {

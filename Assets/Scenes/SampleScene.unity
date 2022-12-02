@@ -6554,7 +6554,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1586034360}
   - component: {fileID: 1586034361}
-  - component: {fileID: 1586034362}
   - component: {fileID: 1586034363}
   m_Layer: 0
   m_Name: CarPoolManager
@@ -6593,21 +6592,6 @@ MonoBehaviour:
   _carPrefab: {fileID: 5516517322345857453, guid: 531a376743b5641018a3b12c45110cc7, type: 3}
   _poolSize: 30
   _activeCars: []
---- !u!114 &1586034362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1586034359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16e8efe1ddad4dd1846fb1f9d733465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _generatePositions:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &1586034363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6636,8 +6620,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  _secondsBetweenRequest: 1
-  _timeBetweenSteps: 1
+  _timeBetweenSteps: 0.2
 --- !u!1001 &1588413451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7313,7 +7296,7 @@ MonoBehaviour:
   - {fileID: 963194227}
   - {fileID: 4890662}
   - {fileID: 1332420155}
-  _activeCamera: 1
+  _activeCamera: 0
   _activeCarCamera: {fileID: 0}
 --- !u!4 &1808208864
 Transform:

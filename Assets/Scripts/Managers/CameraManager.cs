@@ -60,6 +60,14 @@ public class CameraManager : MonoBehaviour
         }
     }
 
+    public void ChangeCameraFromCar()
+    {
+        if (_activeCamera == 2)
+        {
+            ChangeCamera();
+        }
+    }
+    
     public void EnableCarCamera(Camera carCamera)
     {
         _activeCarCamera = carCamera;
