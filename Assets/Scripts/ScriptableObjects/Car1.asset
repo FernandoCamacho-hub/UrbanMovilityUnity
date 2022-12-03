@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 033d6d046c5d442ce8b5de53d6dc26cb, type: 3}
   m_Name: Car1
   m_EditorClassIdentifier: 
-  scale: 0.2
+  scale: 0.1
   prefabModel: {fileID: 4591691155392393144, guid: a9cbfe7195f75844aa7ec0619ca7616f, type: 3}
